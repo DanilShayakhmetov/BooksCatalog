@@ -4,32 +4,32 @@ volumes:
   cache.app:
 services:
   nginx:
-    container_name: nginx.video
+    container_name: nginx.catalog
     build:
       context: ./
-      dockerfile: Dockerfile_NGINX.sh
+      dockerfile: Dockerfile_NGINX
     ports:
       - "8000:80"
     links:
       - php
     volumes:
-      - ./videoCatalog:/videoCatalog
+      - ./:/Catalog
       - logs.app:/app/var/logs
       - cache.app:/app/var/cache
       - ./host.conf:/etc/nginx/conf.d/default.conf
   php:
-    container_name: php.video
+    container_name: php.catalog
     build:
       context: ./
-      dockerfile: Dockerfile_PHP.sh
+      dockerfile: Dockerfile_PHP
     links:
       - db
     volumes:
-      - ./videoCatalog:/videoCatalog
+      - ./:/Catalog
       - logs.app:/app/var/logs
       - cache.app:/app/var/cache
   db:
-    container_name: postgres.video
+    container_name: postgres.catalog
     image: postgres:9.6-alpine
     ports:
       - "5432:5432"
@@ -38,7 +38,7 @@ services:
 
        # Default user: postgres
   adminer:
-    container_name: adminer.video
+    container_name: adminer.catalog
     image: adminer
     ports:
       - "8080:8080"
