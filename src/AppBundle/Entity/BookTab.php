@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,30 +25,42 @@ class BookTab
     /**
      * @var string
      *
-     * @ORM\Column(name="Title", type="string", length=75, unique=true)
+     * @ORM\Column(name="Title", type="string", length=100, unique=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Ð—ÐPubYear", type="string", length=25)
+     * @ORM\Column(name="PubYear", type="string", length=25)
      */
-    private $Ð—ÐPubYear;
+    private $pubYear;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ISBN", type="string", length=17, unique=true)
+     * @ORM\Column(name="Isbn", type="string", length=17, unique=true)
      */
-    private $iSBN;
+    private $isbn;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="Cover", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Cover", type="string", length=255)
      */
     private $cover;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="BookTab", mappedBy="AuthorBook")
+     * @ORM\JoinColumn(name="author_tab_id", referencedColumnName="id", nullable=false)
+     */
+    private $BookAuthor;
+
+
+    public function __construct() {
+        $this->BookAuthor = new ArrayCollection();
+    }
 
 
     /**
@@ -85,61 +98,61 @@ class BookTab
     }
 
     /**
-     * Set Ð—ÐPubYear.
+     * Set pubYear.
      *
-     * @param string $Ð—ÐPubYear
+     * @param string $pubYear
      *
      * @return BookTab
      */
-    public function setÐ—ÐPubYear($Ð—ÐPubYear)
+    public function setPubYear($pubYear)
     {
-        $this->Ð—ÐPubYear = $Ð—ÐPubYear;
+        $this->pubYear = $pubYear;
 
         return $this;
     }
 
     /**
-     * Get Ð—ÐPubYear.
+     * Get pubYear.
      *
      * @return string
      */
-    public function getÐ—ÐPubYear()
+    public function getPubYear()
     {
-        return $this->Ð—ÐPubYear;
+        return $this->pubYear;
     }
 
     /**
-     * Set iSBN.
+     * Set isbn.
      *
-     * @param string $iSBN
+     * @param string $isbn
      *
      * @return BookTab
      */
-    public function setISBN($iSBN)
+    public function setIsbn($isbn)
     {
-        $this->iSBN = $iSBN;
+        $this->isbn = $isbn;
 
         return $this;
     }
 
     /**
-     * Get iSBN.
+     * Get isbn.
      *
      * @return string
      */
-    public function getISBN()
+    public function getIsbn()
     {
-        return $this->iSBN;
+        return $this->isbn;
     }
 
     /**
      * Set cover.
      *
-     * @param string|null $cover
+     * @param string $cover
      *
      * @return BookTab
      */
-    public function setCover($cover = null)
+    public function setCover($cover)
     {
         $this->cover = $cover;
 
@@ -149,7 +162,7 @@ class BookTab
     /**
      * Get cover.
      *
-     * @return string|null
+     * @return string
      */
     public function getCover()
     {

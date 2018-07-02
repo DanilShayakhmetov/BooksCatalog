@@ -43,6 +43,17 @@ class AuthorTab
     private $middleName;
 
 
+//    Foregin Key's
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="BookAuthor")
+     * @ORM\JoinColumn(name="book_tab_id", referencedColumnName="id", nullable=false)
+     */
+    private $AuthorBook;
+
+
+
     /**
      * Get id.
      *
