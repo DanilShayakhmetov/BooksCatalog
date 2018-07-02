@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use AppBundle\Entity\AuthorTab;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,16 +53,36 @@ class BookTab
     private $cover;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="BookTab", mappedBy="AuthorBook")
-     * @ORM\JoinColumn(name="author_tab_id", referencedColumnName="id", nullable=false)
-     */
-    private $BookAuthor;
+
+//________________________________________________________________________________________
+      /**
+       * @ORM\OneToMany(targetEntity="BookTab", mappedBy="Book")
+       * @ORM\JoinColumn(name="author_tab_id", referencedColumnName="id", nullable=false)
+       *
+       */
+
+    private $Author;
 
 
     public function __construct() {
-        $this->BookAuthor = new ArrayCollection();
+        $this->Author = new ArrayCollection();
     }
+
+
+
+
+
+    /**
+     * @return Collection|AuthorTab[]
+     */
+    public function getAuthor()
+    {
+        return $this->Author;
+    }
+
+
+
+//________________________________________________________________________________________
 
 
     /**
