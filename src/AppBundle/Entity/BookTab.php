@@ -73,7 +73,7 @@ class BookTab
 
 
     /**
-     * @return Collection|AuthorTab[]
+     * @return ArrayCollection|AuthorTab[]
      */
     public function getAuthors()
     {

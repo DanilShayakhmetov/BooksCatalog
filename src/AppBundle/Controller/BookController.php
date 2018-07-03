@@ -18,8 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Routing;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-
 
 class BookController extends controller
 {
@@ -44,16 +42,42 @@ class BookController extends controller
      * @Route("/books")
      */
 
-     public function getAction()
+     public function getCatalogAction()
      {
      $books = $this->getDoctrine()
      ->getRepository(BookTab::class)
      ->findAll();
 
+
          return $this->render('catalog/catalog-book.html.twig', array(
              'books' => $books,
          ));
      }
+
+
+
+    /**
+     * @Route("/book/{id}")
+     */
+    public function getBookByAuthor($id)
+    {
+        $author = $this->getDoctrine()
+            ->getRepository(AuthorTab::class)
+            ->findOneBy(['id'=>$id]);
+        $transit = $author->getBook();
+        $title = $transit->getTitle();
+        $isbn = $transit->getIsbn();
+        $getPubYear = $transit->getPubYear();
+
+        return $this->render('catalog/info-book.html.twig', array(
+            'author' => $author,
+            'title' => $title,
+            'isbn' => $isbn,
+            'pubYear' => $getPubYear,
+        ));
+
+    }
+
 
 
 

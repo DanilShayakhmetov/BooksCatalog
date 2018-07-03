@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block infobook %}
+    {{ title }}
+    {{ isbn }}
+    {{ pubYear }}
+    {% if author %}
+            {{ author.firstName }}
+            {{ author.lastName }}
+            {{ author.middleName }}
+    {% endif %}
+{% endblock %}

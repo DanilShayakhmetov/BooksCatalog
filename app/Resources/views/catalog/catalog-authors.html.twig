@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block catalogauthors %}
+        {% for author in authors %}
+            {% if author %}
+                <div class="col-sm-3" style="background-color:white;">
+                    <div class="card" style="width: 18rem;">
+                        <h5 class="size"><a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a></h5>
+                            <h5 class="size"> <p>{{ author.lastName }}</p></h5>
+                            <h5 class="size"> <p>{{ author.middleName }}</p></h5>
+                            <h5 class="size"> <p>{{ author.id }}</p></h5>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+{%endblock%}

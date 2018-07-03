@@ -24,18 +24,22 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class AuthorsController extends controller
 {
 
-//    /**
-//     * @Route("/authors")
-//     */
-//
-//    public function indexAction()
-//    {
-//        $authors = $this->getDoctrine()
-//            ->getRepository(AuthorTab::class)
-//            ->findAll();
-//
-//        return $this->render('base.html.twig');
-//    }
+    /**
+     * @Route("/authors")
+     */
+
+    public function getAction()
+    {
+        $authors = $this->getDoctrine()
+
+            ->getRepository(AuthorTab::class)
+            ->findall();
+
+
+        return $this->render('catalog/catalog-authors.html.twig', array(
+            'authors'=>$authors,
+        ));
+    }
 
     /**
      * @Route("/setAuthor/{id}")
@@ -114,6 +118,22 @@ class AuthorsController extends controller
     }
 
 
+//    /**
+//     * @Route("/authors/{id}")
+//     */
+//    public function getAuthors($id)
+//    {
+//        $book = $this->getDoctrine()
+//            ->getRepository(BookTab::class)
+//            ->find($id);
+//        $transit = $book->getAuthors();
+//        $author = dump($transit);
+//        $author = $author->toArray();
+//
+//        return $this->render('catalog/info-book.html.twig', array(
+//            'book' => $book,
+//            'authors' => $author,
+//        ));
 
 
 }
