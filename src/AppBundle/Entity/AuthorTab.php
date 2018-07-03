@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\BookTab;
 
 /**
  * AuthorTab
@@ -49,18 +50,25 @@ class AuthorTab
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="Author")
+     * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="Authors")
      * @ORM\JoinColumn(name="book_tab_id", referencedColumnName="id", nullable=false)
      */
     private $Book;
 
 
-
+    /**
+     * Get id.
+     *
+     * @return BookTab
+     */
     public function getBook()
     {
         return $this->Book;
     }
 
+    /**
+     * @param mixed $Book
+     */
     public function setBook(BookTab $Book)
     {
         $this->Book = $Book;

@@ -9,26 +9,93 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\AuthorTab;
 use AppBundle\Entity\BookTab;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Bundle\FrameworkBundle\Routing;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 class BookController extends controller
 {
 
-    /**
+//    /**
+//     * @Route("/books")
+//     */
+//
+//    public function indexAction()
+//    {
+//        $authors = $this->getDoctrine()
+//            ->getRepository(AuthorTab::class)
+//            ->findAll();
+//
+//        return $this->render('base.html.twig');
+//    }
+//
+
+
+
+     /**
      * @Route("/books")
      */
 
-    public function indexAction()
-    {
-        $authors = $this->getDoctrine()
-            ->getRepository(AuthorTab::class)
-            ->findAll();
+     public function getAction()
+     {
+     $books = $this->getDoctrine()
+     ->getRepository(BookTab::class)
+     ->findAll();
 
-        return $this->render('base.html.twig');
-    }
+         return $this->render('catalog/catalog-book.html.twig', array(
+             'books' => $books,
+         ));
+     }
+
+
+
+    /**
+     *  @Route("/setBook/")
+     */
+     public function postAction(Request $request, EntityManagerInterface $em)
+     {
+     $form = $this->createFormBuilder()
+
+     ->add('Title', TextType::class)
+     ->add('Yearofpublish', TextType::class)
+     ->add('ISBN', TextType::class)
+     ->getForm();
+
+     $form->handleRequest($request);
+
+     if ($form->isSubmitted() && $form->isValid()) {
+
+     $book = new BookTab();
+     $data = $form->getData();
+     $title = $data['Title'];
+     $year = $data['Yearofpublish'];
+     $isbn = $data['ISBN'];
+     if (empty($title) || empty($year) || empty($isbn)) {
+     return $this->render("base.html.twig");
+     }
+     $book->setTitle($title);
+     $book->setPubYear($year);
+     $book->setIsbn($isbn);
+     $em = $this->getDoctrine()->getManager();
+     $em->persist($book);
+     $em->flush();
+//     return $this->render('base.html.twig');
+     }
+     return $this->render('create-book.html.twig', array(
+     'form' => $form->createView(),
+     ));
+     }
+
+
+
 
 
 

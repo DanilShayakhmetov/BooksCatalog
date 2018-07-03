@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block catalogbook %}
+ <style>
+            .pagenavbar {
+                color: black;
+                text-align: center;
+            }
+            .size {
+                width:200px;
+                height: 100px;
+                overflow: hidden; /* Обрезаем содержимое */
+                padding: 5px; /* Поля */
+                text-overflow: ellipsis; /* Многоточие */
+                color: black;
+            }
+            img {
+                border-radius: 50%;
+            }
+ </style>
+    {#<div class="row">#}
+    {#{% for book in books %}#}
+        {#{% if book %}#}
+            {#<div class="col-sm-3" style="background-color:white;">#}
+                {#<div class="card" style="width: 18rem;">#}
+                    {#<a href=/setAuthor/{{ book.id }}><p>{{ book.title}} </p></a>#}
+                    {#<div class="card-body">#}
+                        {#<h5 class="size"> <p>{{ book.title }}</p></h5>#}
+                        {#<h5 class="size"> <p>{{ book.isbn }}</p></h5>#}
+                        {#<h5 class="size"> <p>{{ book.pubYear }}</p></h5>#}
+
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endif %}#}
+    {#{% endfor %}#}
+    {#</div>#}
+    {{ books.title }}
+{%endblock%}

@@ -48,7 +48,7 @@ class BookTab
     /**
      * @var string
      *
-     * @ORM\Column(name="Cover", type="string", length=255)
+     * @ORM\Column(name="Cover", type="string", length=255, nullable=true)
      */
     private $cover;
 
@@ -61,11 +61,11 @@ class BookTab
        *
        */
 
-    private $Author;
+    private $Authors;
 
 
     public function __construct() {
-        $this->Author = new ArrayCollection();
+        $this->Authors = new ArrayCollection();
     }
 
 
@@ -75,11 +75,34 @@ class BookTab
     /**
      * @return Collection|AuthorTab[]
      */
-    public function getAuthor()
+    public function getAuthors()
     {
-        return $this->Author;
+        return $this->Authors;
     }
 
+
+
+
+    public function addAuthor(AuthorTab $Author)
+    {
+        if (!$this->Authors->contains($Author)) {
+            $this->Authors[] = $Author;
+            $Author->setBook($this);
+        }
+        return $this;
+    }
+
+//    public function removeComment(Comment $comment): self
+//    {
+//        if ($this->comments->contains($comment)) {
+//            $this->comments->removeElement($comment);
+//            // set the owning side to null (unless already changed)
+//            if ($comment->getArticle() === $this) {
+//                $comment->setArticle(null);
+//            }
+//        }
+//        return $this;
+//    }
 
 
 //________________________________________________________________________________________
