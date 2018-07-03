@@ -42,7 +42,7 @@ class BookController extends controller
      * @Route("/books")
      */
 
-     public function getCatalogAction()
+     public function getAction()
      {
      $books = $this->getDoctrine()
      ->getRepository(BookTab::class)
