@@ -92,17 +92,18 @@ class BookTab
         return $this;
     }
 
-//    public function removeComment(Comment $comment): self
-//    {
-//        if ($this->comments->contains($comment)) {
-//            $this->comments->removeElement($comment);
-//            // set the owning side to null (unless already changed)
-//            if ($comment->getArticle() === $this) {
-//                $comment->setArticle(null);
-//            }
-//        }
-//        return $this;
-//    }
+
+    public function removeAuthor(AuthorTab $Author)
+    {
+        if ($this->Authors->contains($Author)) {
+            $this->Authors->removeElement($Author);
+            // set the owning side to null (unless already changed)
+            if ($Author->getBook() === $this) {
+                $Author->setBook(null);
+            }
+        }
+        return $this;
+    }
 
 
 //________________________________________________________________________________________

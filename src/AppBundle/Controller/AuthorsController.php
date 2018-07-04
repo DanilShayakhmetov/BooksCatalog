@@ -13,6 +13,7 @@ use AppBundle\Entity\BookTab;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Tests\Fixtures\Author;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,13 +42,16 @@ class AuthorsController extends controller
         ));
     }
 
+
     /**
      * @Route("/setAuthor/{id}")
      */
     public function postAction($id, Request $request)
     {
 
-
+        $allAuthors  =  $this->getDoctrine()
+            ->getRepository(AuthorTab::class)
+            ->findAll();
         $form = $this->createFormBuilder()
             ->add('FirstName', TextType::class)
             ->add('LastName', TextType::class)
@@ -72,16 +76,48 @@ class AuthorsController extends controller
             $Author->setLastName($lastName);
             $Author->setMiddleName($middleName);
             $Author->setBook($book);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($Author);
-            $em->flush();
-            return $this->render('catalog/create-book.html.twig', array(
-                'form' => $form->createView(),
-            ));
+            $result = $this->checkAuthor($Author);
+            if($result == null){
+                $caution = "The author with the same name already exists";
+                return $this->render('catalog/create-author.html.twig', array(
+                    'form' => $form->createView(),
+                    'caution' => $caution
+                ));
+            }else{
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($Author);
+                $em->flush();
+                return $this->render('catalog/create-author.html.twig', array(
+                    'form' => $form->createView(),
+                    'caution' => ''
+                ));
+            }
         }
-        return $this->render('catalog/create-book.html.twig', array(
+        return $this->render('catalog/create-author.html.twig', array(
             'form' => $form->createView(),
+            'caution' => ''
         ));
+    }
+
+
+
+
+    public function checkAuthor(AuthorTab $Author)
+    {
+
+        $firstName = $Author->getFirstName();
+        $lastName = $Author->getLastName();
+        $middleName = $Author->getMiddleName();
+        $allAuthors  =  $this->getDoctrine()
+            ->getRepository(AuthorTab::class)
+            ->findOneBy(array('firstName'=> $firstName,'lastName'=>$lastName,'middleName'=>$middleName));
+            if ($allAuthors == null){
+                return $Author;
+            } else {
+
+                return null;
+            }
     }
 
 
@@ -116,6 +152,64 @@ class AuthorsController extends controller
         ));
 
     }
+
+
+
+//
+//    /**
+//     * @Route("/setAuthor/{id}")
+//     */
+//    public function postAction($id, Request $request)
+//    {
+//
+//
+//        $form = $this->createFormBuilder()
+//            ->add('FirstName', TextType::class)
+//            ->add('LastName', TextType::class)
+//            ->add('MiddleName', TextType::class)
+//            ->getForm();
+//
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $book =  $this->getDoctrine()
+//                ->getRepository(BookTab::class)
+//                ->findOneBy(['id'=>$id]);
+//            $Author = new AuthorTab();
+//            $Book = new BookTab();
+//            $data = $form->getData();
+//            $firstName = $data['FirstName'];
+//            $lastName = $data['LastName'];
+//            $middleName = $data['MiddleName'];
+//            if (empty($firstName) || empty($lastName)|| empty($middleName)) {
+//                return $this->render("base.html.twig");
+//            }
+//            $Author->setFirstName($firstName);
+//            $Author->setLastName($lastName);
+//            $Author->setMiddleName($middleName);
+//            $Author->setBook($book);
+//            $Book->addAuthor($Author);
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($Book);
+//            $em->flush();
+//            return $this->render('catalog/create-book.html.twig', array(
+//                'form' => $form->createView(),
+//            ));
+//        }
+//        return $this->render('catalog/create-book.html.twig', array(
+//            'form' => $form->createView(),
+//        ));
+//    }
+
+
+
+
+
+
+
+
+
+
 
 
 //    /**
