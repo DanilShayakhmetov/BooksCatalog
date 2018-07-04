@@ -12,22 +12,19 @@ use AppBundle\Entity\AuthorTab;
 use AppBundle\Entity\BookTab;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Bundle\FrameworkBundle\Routing;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+
+
+
 class AuthorsController extends controller
 {
 
     /**
      * @Route("/authors")
      */
-
     public function getAction()
     {
         $authors = $this->getDoctrine()
@@ -40,6 +37,7 @@ class AuthorsController extends controller
             'authors'=>$authors,
         ));
     }
+
 
     /**
      * @Route("/setAuthor/{id}")
@@ -85,7 +83,6 @@ class AuthorsController extends controller
     }
 
 
-
     /**
      * @Route("/getby/{id}")
      *
@@ -116,24 +113,6 @@ class AuthorsController extends controller
         ));
 
     }
-
-
-//    /**
-//     * @Route("/authors/{id}")
-//     */
-//    public function getAuthors($id)
-//    {
-//        $book = $this->getDoctrine()
-//            ->getRepository(BookTab::class)
-//            ->find($id);
-//        $transit = $book->getAuthors();
-//        $author = dump($transit);
-//        $author = $author->toArray();
-//
-//        return $this->render('catalog/info-book.html.twig', array(
-//            'book' => $book,
-//            'authors' => $author,
-//        ));
 
 
 }
