@@ -53,8 +53,7 @@ class BookController extends controller
             'isbn' => $isbn,
             'pubYear' => $getPubYear,
         ));
-
-    }
+   }
 
 
     /**
@@ -95,10 +94,7 @@ class BookController extends controller
                  $em = $this->getDoctrine()->getManager();
                  $em->persist($Book);
                  $em->flush();
-                 return $this->render('catalog/create-book.html.twig', array(
-                     'form' => $form->createView(),
-                     'caution'=>''
-                 ));
+                 return $this->render('catalog/createdSuccessful.html.twig');
 
              }
          }
@@ -106,8 +102,8 @@ class BookController extends controller
              'form' => $form->createView(),
              'caution'=>''
          ));
-
      }
+
 
      public function checkBook(BookTab $Book)
      {
@@ -131,9 +127,7 @@ class BookController extends controller
         else{
             return $Book;
         }
-
      }
-
 
 
     /**
@@ -174,16 +168,13 @@ class BookController extends controller
             $em->persist($Book);
             $em->flush();
             return $this->render('catalog/changedSuccessful.html.twig');
-
-
         }
         return $this->render('catalog/put-book.html.twig',array(
             'form'=>$form->createView(),
             'book'=>$Book,
 
         ));
-
-        }
+    }
 
         /**
          * @Route("/deleteBook/{id}")
@@ -203,8 +194,4 @@ class BookController extends controller
             return $this->render('catalog/deletedSuccessful.html.twig');
         }
     }
-
-
-
-
 }

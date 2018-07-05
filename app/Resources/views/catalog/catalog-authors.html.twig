@@ -1,18 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block catalogauthors %}
-        {#{% for author in authors %}#}
-            {#{% if author %}#}
-                {#<div class="col-sm-3" style="background-color:white;">#}
-                    {#<div class="card" style="width: 18rem;">#}
-                        {#<h5 class="size"><a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a></h5>#}
-                            {#<h5 class="size"> <p>{{ author.lastName }}</p></h5>#}
-                            {#<h5 class="size"> <p>{{ author.middleName }}</p></h5>#}
-                            {#<h5 class="size"> <p>{{ author.id }}</p></h5>#}
-                        {#<a href="/putAuthor/{{author.id }}"><p>put author</p></a>#}
-                        {#<a href="/delete/{{author.id }}"><p>delete author</p></a>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
+
  <!-- Page Content -->
 <div class="container">
 
@@ -34,7 +22,6 @@
                             <p class="card-text"><h5 class="size">
                             <p>management:</p>
                             </h5>
-
                             </p>
                             <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
                             <a href="/delete/{{author.id }}"><p>delete author</p></a>
@@ -45,10 +32,4 @@
     {% endfor %}
         </div>
         </div>
-    {#{% for initial in initials %}#}
-        {#{% if initial %}#}
-            {#{{ initial.id }}#}
-            {#{{ initial.name }}#}
-        {#{% endif %}#}
-    {#{% endfor %}#}
 {%endblock%}

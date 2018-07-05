@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\BookTab;
+
 
 /**
  * AuthorTab
@@ -45,10 +45,6 @@ class AuthorTab
 
 
 
-//________________________________________________________________________________________
-
-
-
     /**
      * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="Authors", cascade={"remove"})
      * @ORM\JoinColumn(name="book_tab_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
@@ -73,9 +69,6 @@ class AuthorTab
     {
         $this->Book = $Book;
     }
-
-
-//________________________________________________________________________________________
 
 
     /**

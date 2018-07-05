@@ -46,9 +46,7 @@ class AuthorsController extends controller
 
 
         return $this->render('catalog/catalog-authors.html.twig', array(
-//            'authors' => $authors,
             'authors' => $response,
-//            'initials'=> $response
         ));
     }
 
@@ -98,10 +96,7 @@ class AuthorsController extends controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($Author);
                 $em->flush();
-                return $this->render('catalog/create-author.html.twig', array(
-                    'form' => $form->createView(),
-                    'caution' => ''
-                ));
+                return $this->render('catalog/createdSuccessful.html.twig');
             }
         }
         return $this->render('catalog/create-author.html.twig', array(
