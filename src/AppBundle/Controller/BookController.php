@@ -64,35 +64,73 @@ class BookController extends controller
      {
 
          $form = $this->createFormBuilder()
-         ->add('Title', TextType::class)
-         ->add('Yearofpublish', TextType::class)
-         ->add('ISBN', TextType::class)
-         ->getForm();
+             ->add('Title', TextType::class)
+             ->add('Yearofpublish', TextType::class)
+             ->add('ISBN', TextType::class)
+             ->getForm();
 
          $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
 
-         $book = new BookTab();
-         $data = $form->getData();
-         $title = $data['Title'];
-         $year = $data['Yearofpublish'];
-         $isbn = $data['ISBN'];
-         if (empty($title) || empty($year) || empty($isbn)) {
-         return $this->render("base.html.twig");
+             $Book = new BookTab();
+             $data = $form->getData();
+             $title = $data['Title'];
+             $year = $data['Yearofpublish'];
+             $isbn = $data['ISBN'];
+             if (empty($title) || empty($year) || empty($isbn)) {
+                 return $this->render("base.html.twig");
+             }
+             $Book->setTitle($title);
+             $Book->setPubYear($year);
+             $Book->setIsbn($isbn);
+             $response = $this->checkBook($Book);
+             if ($response == "ISBN" || $response == "Title and Year of publication") {
+                 $caution = "The book with the same " . $response . " already exists";
+                 return $this->render('catalog/create-book.html.twig', array(
+                     'form' => $form->createView(),
+                     'caution' => $caution
+                 ));
+             } else {
+                 $em = $this->getDoctrine()->getManager();
+                 $em->persist($Book);
+                 $em->flush();
+
+             }
          }
-         $book->setTitle($title);
-         $book->setPubYear($year);
-         $book->setIsbn($isbn);
-         $em = $this->getDoctrine()->getManager();
-         $em->persist($book);
-         $em->flush();
-    //     return $this->render('base.html.twig');
-         }
-         return $this->render('create-book.html.twig', array(
-         'form' => $form->createView(),
-         ));
+             return $this->render('create-book.html.twig', array(
+                 'form' => $form->createView(),
+                 'caution'=>''
+             ));
+
      }
+
+     public function checkBook(BookTab $Book)
+     {
+        $title = $Book->getTitle();
+        $year = $Book->getPubYear();
+        $isbn = $Book->getIsbn();
+        $findBookByIsbn = $this->getDoctrine()
+            ->getRepository(BookTab::class)
+            ->findOneBy(['isbn'=>$isbn]);
+        $findBookByTitleYear = $this->getDoctrine()
+            ->getRepository(BookTab::class)
+            ->findOneBy(['title'=>$title,'pubYear'=>$year]);
+        if($findBookByIsbn){
+            $response = "ISBN";
+            return $response;
+        }
+        elseif($findBookByTitleYear){
+            $response = "Title and Year of publication";
+            return $response;
+        }
+        else{
+            return $Book;
+        }
+
+     }
+
+
 
     /**
      * @Route("/putBook/{id}")

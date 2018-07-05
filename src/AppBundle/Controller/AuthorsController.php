@@ -236,36 +236,5 @@ class AuthorsController extends controller
             'author'=>$Author,
         ));
     }
-//    /**
-//     * @Route("/getby/{id}")
-//     *
-//     */
-//    public function getById($id)
-//    {
-//        $books = $this->getDoctrine()
-//            ->getRepository(BookTab::class)
-//            ->findOneBy(['id' => $id]);
 
-//        $books = new BookTab();
-//        $books->setIsbn('Q');
-//        $books->setTitle('Q');
-//        $books->setPubYear('Q');
-//
-//        $author = new AuthorTab();
-//        $author->setFirstName('Nico');
-//        $author->setLastName('Nico');
-//        $author->setMiddleName('Nico');
-//        $author->setBook($books);
-//
-//
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->persist($author);
-//        $entityManager->flush();
-//
-//        return $this->render('catalog/catalog-book.html.twig', array(
-//            'books' => $books,
-//        ));
-//
-//    }
-//
 }

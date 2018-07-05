@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
-{% block create %}
+{% block createbook %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="form-group">
@@ -9,4 +9,7 @@
         </div>
     </div>
     {{ form_end(form) }}
+    {% if caution %}
+        {{ caution }}
+    {% endif %}
 {% endblock %}
