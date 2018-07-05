@@ -145,7 +145,7 @@ class AuthorTab
      */
     public function setMiddleName($middleName)
     {
-        $this->middleName = $middleName;
+         $this->middleName = $middleName;
 
         return $this;
     }

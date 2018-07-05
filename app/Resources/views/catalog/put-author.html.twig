@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block putauthor %}
+    {% if author %}
+        <p>Change this Author's data</p>
+        <p>First name : {{ author.firstName }}</p>
+        <p>Last name : {{ author.lastName }}</p>
+        <p>Middle name : {{ author.middleName }}</p>
+    {% endif %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-dark">add</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
