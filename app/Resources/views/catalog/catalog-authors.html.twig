@@ -8,14 +8,11 @@
                             <h5 class="size"> <p>{{ author.lastName }}</p></h5>
                             <h5 class="size"> <p>{{ author.middleName }}</p></h5>
                             <h5 class="size"> <p>{{ author.id }}</p></h5>
+                        <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
+                        <a href="/delete/{{author.id }}"><p>delete author</p></a>
                         </div>
                     </div>
                 </div>
-                <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
-                <a href="/delete/{{author.id }}"><p>delete author</p></a>
-
             {% endif %}
         {% endfor %}
-
-
 {%endblock%}

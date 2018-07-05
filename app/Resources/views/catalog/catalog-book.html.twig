@@ -22,18 +22,18 @@
         {% if book %}
             <div class="col-sm-3" style="background-color:white;">
                 <div class="card" style="width: 18rem;">
-                    <a href=/setAuthor/{{ book.id }}><p>{{ book.title}} </p></a>
                     <div class="card-body">
                         <h5 class="size"> <p>{{ book.title }}</p></h5>
                         <h5 class="size"> <p>{{ book.isbn }}</p></h5>
                         <h5 class="size"> <p>{{ book.pubYear }}</p></h5>
                         <a href="/putBook/{{ book.id }}"><p>PutBook</p></a>
                         <a href="/deleteBook/{{ book.id }}"><p>deleteBook</p></a>
+                        <a href=/setAuthor/{{ book.id }}><p>Set author {{ book.title}} </p></a>
                     </div>
                 </div>
             </div>
         {% endif %}
     {% endfor %}
     </div>
-    {#{{ books.title }}#}
+
 {%endblock%}
