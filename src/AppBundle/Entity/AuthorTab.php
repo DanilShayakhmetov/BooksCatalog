@@ -50,8 +50,8 @@ class AuthorTab
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="Authors")
-     * @ORM\JoinColumn(name="book_tab_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="BookTab", inversedBy="Authors", cascade={"remove"})
+     * @ORM\JoinColumn(name="book_tab_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $Book;
 

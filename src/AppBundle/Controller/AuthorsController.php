@@ -196,18 +196,21 @@ class AuthorsController extends controller
      */
     public function putAction($id, Request $request)
     {
-
-        $form  = $this
-            ->createFormBuilder()
-            ->add('FirstName',TextType::class)
-            ->add('LastName',TextType::class)
-            ->add('MiddleName',TextType::class)
-            ->getForm();
-
         $Author = $this
             ->getDoctrine()
             ->getRepository(AuthorTab::class)
             ->find($id);
+
+        $firstName = $Author->getFirstName();
+        $lastName = $Author->getLastName();
+        $middleName = $Author->getMiddleName();
+
+        $form  = $this
+            ->createFormBuilder()
+            ->add('FirstName',TextType::class, array('data'=>$firstName))
+            ->add('LastName',TextType::class, array('data'=>$lastName))
+            ->add('MiddleName',TextType::class, array('data'=>$middleName))
+            ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted()&&$form->isValid()){

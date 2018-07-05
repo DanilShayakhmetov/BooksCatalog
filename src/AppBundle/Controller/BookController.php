@@ -62,8 +62,8 @@ class BookController extends controller
      */
      public function postAction(Request $request, EntityManagerInterface $em)
      {
-         $form = $this->createFormBuilder()
 
+         $form = $this->createFormBuilder()
          ->add('Title', TextType::class)
          ->add('Yearofpublish', TextType::class)
          ->add('ISBN', TextType::class)
@@ -94,10 +94,73 @@ class BookController extends controller
          ));
      }
 
+    /**
+     * @Route("/putBook/{id}")
+     *
+     */
+    public function putAction($id,Request $request)
+    {
+        $Book = $this->getDoctrine()
+            ->getRepository(BookTab::class)
+            ->find($id);
+        $title = $Book->getTitle();
+        $year = $Book->getPubYear();
+        $isbn = $Book->getIsbn();
+        $form = $this->createFormBuilder()
+            ->add('Title', TextType::class, array('data'=>$title))
+            ->add('YearOfPublish', TextType::class,array('data'=>$year))
+            ->add('ISBN',TextType::class, array('data'=>$isbn))
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $title = $data['Title'];
+            $year = $data['YearOfPublish'];
+            $isbn = $data['ISBN'];
+            if(!empty($title)) {
+                $Book->setTitle($title);
+            }
+            if(!empty($year)){
+                $Book->setPubYear($year);
+            }
+            if(!empty($isbn)){
+                $Book->setIsbn($isbn);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($Book);
+            $em->flush();
+            return $this->render('base.html.twig');
 
 
+        }
+        return $this->render('catalog/put-book.html.twig',array(
+            'form'=>$form->createView(),
+            'book'=>$Book,
 
+        ));
 
+        }
+
+        /**
+         * @Route("/deleteBook/{id}")
+         *
+         */
+    public function  deleteAction($id)
+    {
+        $Book = $this->getDoctrine()
+            ->getRepository(BookTab::class)
+            ->findOneBy(['id'=>$id]);
+        if(empty($Book)){
+            return $this->render('base.html.twig');
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($Book);
+            $em->flush();
+            return $this->render('base.html.twig');
+        }
+    }
 
 
 
