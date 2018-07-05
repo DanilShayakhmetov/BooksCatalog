@@ -173,7 +173,7 @@ class BookController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($Book);
             $em->flush();
-            return $this->render('base.html.twig');
+            return $this->render('catalog/changedSuccessful.html.twig');
 
 
         }
@@ -200,7 +200,7 @@ class BookController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($Book);
             $em->flush();
-            return $this->render('base.html.twig');
+            return $this->render('catalog/deletedSuccessful.html.twig');
         }
     }
 
