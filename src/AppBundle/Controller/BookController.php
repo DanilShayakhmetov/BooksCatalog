@@ -91,17 +91,21 @@ class BookController extends controller
                      'form' => $form->createView(),
                      'caution' => $caution
                  ));
-             } else {
+             } elseif($response == $Book) {
                  $em = $this->getDoctrine()->getManager();
                  $em->persist($Book);
                  $em->flush();
+                 return $this->render('catalog/create-book.html.twig', array(
+                     'form' => $form->createView(),
+                     'caution'=>''
+                 ));
 
              }
          }
-             return $this->render('create-book.html.twig', array(
-                 'form' => $form->createView(),
-                 'caution'=>''
-             ));
+         return $this->render('catalog/create-book.html.twig', array(
+             'form' => $form->createView(),
+             'caution'=>''
+         ));
 
      }
 
