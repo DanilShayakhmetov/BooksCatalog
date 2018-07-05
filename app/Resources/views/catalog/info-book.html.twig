@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
 {% block infobook %}
-    {{ title }}
-    {{ isbn }}
-    {{ pubYear }}
+    <div class="container">
+    <p> {{ title }}</p>
+    <p>{{ isbn }}</p>
+    <p>{{ pubYear }}</p>
     {% if author %}
-            {{ author.firstName }}
-            {{ author.lastName }}
-            {{ author.middleName }}
+        <p>{{ author.firstName }}</p>
+            <p>{{ author.lastName }}</p>
+        <p>{{ author.middleName }}</p>
+        </div>
     {% endif %}
 {% endblock %}

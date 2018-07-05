@@ -1,15 +1,45 @@
-{% extends 'base.html.twig' %}
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 {% block createbook %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-dark">add</button>
-        </div>
-    </div>
-    {{ form_end(form) }}
-    {% if caution %}
-        {{ caution }}
-    {% endif %}
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>3 Col Portfolio - Start Bootstrap Template</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="startbootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="startbootstrap/css/3-col-portfolio.css" rel="stylesheet">
+
+    </head>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h1 class="my-4">Author's Catalog
+            <small>    {% if caution %}
+                    {{ caution }}
+                {% endif %}</small>
+        </h1>
+        <div class="row">
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <p>ADD NEW BOOK</p>
+                                </h4>
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                        <button type="submit" class="btn btn-dark">add</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 {% endblock %}

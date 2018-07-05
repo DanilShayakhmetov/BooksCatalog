@@ -69,4 +69,4 @@ swiftmailer:
 
 # Bootstrap
 twig:
-    form_themes: ['bootstrap_3_layout.html.twig']
+    form_themes: ['bootstrap_4_layout.html.twig']

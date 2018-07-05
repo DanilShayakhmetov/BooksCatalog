@@ -30,10 +30,25 @@ class AuthorsController extends controller
         $authors = $this->getDoctrine()
             ->getRepository(AuthorTab::class)
             ->findall();
+        $response = array();
+        $inside = array();
+        foreach ($authors as $author){
+            $first = $author->getFirstName();
+            $first = str_split($first);
+            $middle = $author->getMiddleName();
+            $middle = str_split($middle);
+            $last = $author->getLastName();
+            $name = $last.'. '.$first[0].'. '.$middle[0];
+            $id = $author->getId();
+            $inside = array('id'=>$id,'name'=>$name);
+            $response[] = $inside;
+        }
 
 
         return $this->render('catalog/catalog-authors.html.twig', array(
-            'authors' => $authors,
+//            'authors' => $authors,
+            'authors' => $response,
+//            'initials'=> $response
         ));
     }
 
