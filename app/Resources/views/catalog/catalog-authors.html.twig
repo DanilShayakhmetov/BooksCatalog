@@ -25,15 +25,16 @@
         {% if author %}
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="Chekhov.jpg" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a>
+                                <p>Author:</p>
+                                <p><a href=/book/{{author.id }}> <p>{{ author.name }}</p></a>
                             </h4>
                             <p class="card-text"><h5 class="size">
-                            <p>{{ author.lastName }}</p>
-                            <p>{{ author.middleName }}</p>
-                            <p>{{ author.id }}</p></h5>
+                            <p>management:</p>
+                            </h5>
+
                             </p>
                             <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
                             <a href="/delete/{{author.id }}"><p>delete author</p></a>
@@ -44,4 +45,10 @@
     {% endfor %}
         </div>
         </div>
+    {#{% for initial in initials %}#}
+        {#{% if initial %}#}
+            {#{{ initial.id }}#}
+            {#{{ initial.name }}#}
+        {#{% endif %}#}
+    {#{% endfor %}#}
 {%endblock%}
