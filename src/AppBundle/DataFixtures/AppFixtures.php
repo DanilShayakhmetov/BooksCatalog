@@ -17,8 +17,6 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $name = (string)(mt_rand(10000, 20000));
-
 
         // create 20 Book's with 2 author's for everyone
         for ($i = 0; $i < 20; $i++) {
