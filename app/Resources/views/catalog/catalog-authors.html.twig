@@ -1,18 +1,47 @@
 {% extends 'base.html.twig' %}
 {% block catalogauthors %}
-        {% for author in authors %}
-            {% if author %}
-                <div class="col-sm-3" style="background-color:white;">
-                    <div class="card" style="width: 18rem;">
-                        <h5 class="size"><a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a></h5>
-                            <h5 class="size"> <p>{{ author.lastName }}</p></h5>
-                            <h5 class="size"> <p>{{ author.middleName }}</p></h5>
-                            <h5 class="size"> <p>{{ author.id }}</p></h5>
-                        <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
-                        <a href="/delete/{{author.id }}"><p>delete author</p></a>
+        {#{% for author in authors %}#}
+            {#{% if author %}#}
+                {#<div class="col-sm-3" style="background-color:white;">#}
+                    {#<div class="card" style="width: 18rem;">#}
+                        {#<h5 class="size"><a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a></h5>#}
+                            {#<h5 class="size"> <p>{{ author.lastName }}</p></h5>#}
+                            {#<h5 class="size"> <p>{{ author.middleName }}</p></h5>#}
+                            {#<h5 class="size"> <p>{{ author.id }}</p></h5>#}
+                        {#<a href="/putAuthor/{{author.id }}"><p>put author</p></a>#}
+                        {#<a href="/delete/{{author.id }}"><p>delete author</p></a>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+ <!-- Page Content -->
+<div class="container">
+
+<!-- Page Heading -->
+<h1 class="my-4">Author's Catalog
+    <small>View and change items</small>
+</h1>
+    <div class="row">
+    {% for author in authors %}
+        {% if author %}
+                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href=/book/{{author.id }}> <p>{{ author.firstName }}</p></a>
+                            </h4>
+                            <p class="card-text"><h5 class="size">
+                            <p>{{ author.lastName }}</p>
+                            <p>{{ author.middleName }}</p>
+                            <p>{{ author.id }}</p></h5>
+                            </p>
+                            <a href="/putAuthor/{{author.id }}"><p>put author</p></a>
+                            <a href="/delete/{{author.id }}"><p>delete author</p></a>
                         </div>
                     </div>
                 </div>
-            {% endif %}
-        {% endfor %}
+        {% endif %}
+    {% endfor %}
+        </div>
+        </div>
 {%endblock%}
