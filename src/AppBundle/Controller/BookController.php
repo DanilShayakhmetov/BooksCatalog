@@ -23,13 +23,24 @@ class BookController extends controller
      * @Route("/books")
      */
 
-     public function getAction()
+     public function getAction(Request $request)
      {
          $books = $this->getDoctrine()
          ->getRepository(BookTab::class)
          ->findAll();
+
+         /**
+          * @var $paginator \Knp\Component\Pager\Paginator
+          */
+         $paginator  = $this->get('knp_paginator');
+         $result = $pagination = $paginator->paginate(
+             $books ,
+             $request->query->getInt('page', 1)/*page number*/,
+             12/*limit per page*/
+         );
+
          return $this->render('catalog/catalog-book.html.twig', array(
-                 'books' => $books,
+                 'books' => $result,
              ));
      }
 
@@ -194,4 +205,6 @@ class BookController extends controller
             return $this->render('catalog/deletedSuccessful.html.twig');
         }
     }
+
+
 }
