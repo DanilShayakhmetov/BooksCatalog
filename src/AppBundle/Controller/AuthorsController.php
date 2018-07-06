@@ -25,7 +25,7 @@ class AuthorsController extends controller
     /**
      * @Route("/authors")
      */
-    public function getAction()
+    public function getAction(Request $request)
     {
         $authors = $this->getDoctrine()
             ->getRepository(AuthorTab::class)
@@ -43,10 +43,19 @@ class AuthorsController extends controller
             $inside = array('id'=>$id,'name'=>$name);
             $response[] = $inside;
         }
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator  = $this->get('knp_paginator');
+        $result = $pagination = $paginator->paginate(
+            $response ,
+            $request->query->getInt('page', 1)/*page number*/,
+            12/*limit per page*/
+        );
 
 
         return $this->render('catalog/catalog-authors.html.twig', array(
-            'authors' => $response,
+            'authors' => $result,
         ));
     }
 
